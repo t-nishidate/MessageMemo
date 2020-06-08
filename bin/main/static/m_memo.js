@@ -70,6 +70,7 @@ function changeOnly1() {
 	
 	if(check_message1.checked == true) {
 		memo.readOnly = true;
+		memo.value = "";
 	}
 }
 
@@ -78,6 +79,7 @@ function changeOnly2() {
 	let check_message2 = document.getElementById("check2");
 	if(check_message2.checked == true) {
 		memo.readOnly = true;
+		memo.value = "";
 	}
 }
 
@@ -94,6 +96,10 @@ function changeOnly3() {
 	}
 }
 
+function resetPage() {
+	document.form.reset();
+}
+
 $(function(){
 	$('input[type=checkbox]').on('click',function(){
 		if ($(this).prop('checked')){
@@ -108,9 +114,10 @@ let checkedNum;
 $('#regist').on('click', function() {
 	checkedNum = $('.check:checked').length;
 	if(checkedNum > 0) {
-		$('.check').prop('required', false);
+		$('#check_alert').text('');
 	} else {
-		alert("対応のいずれかにチェックしてください");
+		$('#check_alert').text('対応のいずれかにチェックしてください');
+		
 	}
 });
 

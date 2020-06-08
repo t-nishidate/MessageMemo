@@ -15,3 +15,7 @@ form {
 #reception_select {
 	padding-right: 75px;
 }
+
+#check_alert {
+	color: #808080;
+}

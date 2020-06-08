@@ -15,11 +15,14 @@
 			</nav>
 		</header>
 		<main>
-			<form method="post" action="http://localhost:8080/msgmemo/inputForm" class="ml-5 mr-5 mb-5">
+			<div class="text-center h1 pt-2">
+				<p id="check_alert"></p>
+			</div>
+			<form name="form" method="post" class="ml-5 mr-5 mb-5">
 				<div class="container">
 					<div class="row">
 						<div class="col-8 text-center pt-3 pb-3">
-			                <input type="text" name="to_user" id="to_user" class="form-control-sm" maxlength="40" required="required">
+			                <input type="text" name="to_name" id="to_user" class="form-control-sm" maxlength="40" required="required">
 			                <label for="to_user" class="m-0">さん宛て</label>
 			            </div>
 					</div>
@@ -30,11 +33,11 @@
 					</div>
 					<div class="row">
 						<div class="col-12 text-center pb-3">
-			                <input type="text" name="today_year" id="today_year" size="6" class="form-control-sm" maxlength="4" required="required" oninput="value = value.replace(/[^0-9]+/i,'');">
+			                <input type="text" name="receiv_time" id="today_year" size="6" class="form-control-sm" maxlength="4" required="required" oninput="value = value.replace(/[^0-9]+/i,'');">
 				            <label for="today_year">年</label>
-				            <input type="text" name="today_month" id="today_month" size="6" class="form-control-sm" maxlength="2" required="required" oninput="value = value.replace(/[^0-9]+/i,'');">
+				            <input type="text" name="receiv_time" id="today_month" size="6" class="form-control-sm" maxlength="2" required="required" oninput="value = value.replace(/[^0-9]+/i,'');">
 				            <label for="today_month">月</label>
-				            <input type="text" name="today_day" id="today_day" size="6" class="form-control-sm" maxlength="2" required="required" oninput="value = value.replace(/[^0-9]+/i,'');">
+				            <input type="text" name="receiv_time" id="today_day" size="6" class="form-control-sm" maxlength="2" required="required" oninput="value = value.replace(/[^0-9]+/i,'');">
 				            <label for="today_month">日</label>
 			            </div>
 					</div>
@@ -52,10 +55,10 @@
 			                </ul>
 			            </div>
 			            <div class="col-7 pt-3 pl-5">
-			                <select id="hour" name="hour" class="pr-4 form-control-sm" required="required">
+			                <select id="hour" name="receiv_time" class="pr-4 form-control-sm" required="required">
 			                </select>
 			                <label for="hour">時</label>
-			                <select name="minute" id="minute" class="pr-4 form-control-sm" required="required">
+			                <select id="minute" name="receiv_time" class="pr-4 form-control-sm" required="required">
 			                </select>
 			                <label for="minute">分</label>
 			            </div>
@@ -67,7 +70,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12 text-center">
-			                <select class="form-control-sm" id="company_select">
+			                <select name="custmer_cd" class="form-control-sm" id="company_select">
 			                	<option value=""></option>
 			                	<option th:each="customer : ${customerlist}" th:object="${customer}" th:value="*{c_num}" th:text="*{c_name}"></option>
 			                </select>
@@ -80,7 +83,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12 text-center">
-			                <input type="text" name="company_name" id="company_name" size="45" class="form-control-sm" maxlength="40" required="required">
+			                <input type="text" name="sender" id="company_name" size="45" class="form-control-sm" maxlength="40" required="required">
 			            </div>
 					</div>
 					<div class="row">
@@ -92,15 +95,15 @@
 						<div class="col-11 text-center">
 			                <ul class="list-unstyled">
 			                    <li>
-			                        <input type="checkbox" name="check1" id="check1" class="check" onclick="changeOnly1()">
+			                        <input type="checkbox" name="message_cd" value="1" id="check1" class="check" onclick="changeOnly1()">
 			                        <label for="check1">もう一度お電話します</label>
 			                    </li>
 			                    <li>
-			                        <input type="checkbox" name="check2" id="check2" class="check" onclick="changeOnly2()">
+			                        <input type="checkbox" name="message_cd" value="2" id="check2" class="check" onclick="changeOnly2()">
 			                        <label for="check2">折り返しお願いします</label>
 			                    </li>
 			                    <li class="pr-3 mr-5">
-			                        <input type="checkbox" name="check3" id="check3" class="check" onclick="changeOnly3()">
+			                        <input type="checkbox" name="message_cd" value="3" id="check3" class="check" onclick="changeOnly3()">
 			                        <label for="check3">伝言あります</label>
 			                    </li>
 			                </ul>
@@ -118,7 +121,7 @@
 					</div>
 					<div class="row">
 						<div class="col-10 text-center ml-4 mb-4">
-							<select class="form-control-sm" id="reception_select" required="required">
+							<select class="form-control-sm" name="receiver_cd" id="reception_select" required="required">
 								<option value=""></option>
 								<option th:each="employee : ${employeelist}" th:object="${employee}" th:value="*{e_num}" th:text="*{e_name}"></option>
 							</select>
@@ -126,7 +129,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12 text-center">
-							<input id="regist" type="submit" value="登録" class="btn-outline-success btn-lg px-5 mb-4">
+							<input id="regist" type="submit" value="登録" class="btn-outline-success btn-lg px-5 mb-4" onsubmit="resetPage()">
 						</div>
 					</div>
 				</div>
