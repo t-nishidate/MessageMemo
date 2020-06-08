@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+form {
+	background-color: #EEEEEE;
+}
+
+#reset_link {
+	text-decoration: none;
+}
+
+#company_select {
+	padding-right: 130px;
+}
+
+#reception_select {
+	padding-right: 75px;
+}
