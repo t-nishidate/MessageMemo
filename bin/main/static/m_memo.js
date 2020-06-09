@@ -93,11 +93,8 @@ function changeOnly3() {
 	} else {
 		memo.readOnly = true;
 		memo.required = false;
+		memo.value = "";
 	}
-}
-
-function resetPage() {
-	document.form.reset();
 }
 
 $(function(){
@@ -111,13 +108,14 @@ $(function(){
 
 let checkedNum;
 
-$('#regist').on('click', function() {
+$('#regist').on('click',function() {
 	checkedNum = $('.check:checked').length;
 	if(checkedNum > 0) {
 		$('#check_alert').text('');
+		return true;
 	} else {
 		$('#check_alert').text('対応のいずれかにチェックしてください');
-		
+		return false;
 	}
 });
 

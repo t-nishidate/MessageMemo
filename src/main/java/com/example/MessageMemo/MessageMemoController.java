@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+//import java.text.SimpleDateFormat;
 
 //画面遷移の制御や主となる処理を実行するクラスに付与するアノテーションである。
 @Controller
@@ -55,13 +56,14 @@ public class MessageMemoController {
     }
 	
 //	@RequestMappingのPOSTリクエスト用のアノテーションである。ページのパスを指定することができる。DB登録処理を行う。
-	@PostMapping
+	@PostMapping(path="/msgmemo/inputForm")
 	
 //	addNewMesasgeという戻り値の型がString型(文字列型)の公開メソッドである。
 //	引数はString型のto_name、String型のreceiver_cd、Timestamp型のreceiv_time
 //	String型のcustmer_cd、String型のsender、String型のmessage_cd、String型のmemoの8つである。
-	public @ResponseBody void addNewMessage(    @RequestParam String to_name
+	public @ResponseBody String addNewMessage(    @RequestParam String to_name
 												, @RequestParam String receiver_cd
+												, @RequestParam String receiv_time
 												, @RequestParam String custmer_cd
 												, @RequestParam String sender
 												, @RequestParam String message_cd
@@ -76,6 +78,8 @@ public class MessageMemoController {
 		
 //		Timestampクラス型のtimestampというインスタンスを生成している。
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
+		System.out.println(receiv_time);
 		
 		messageAddData.setReceiv_time(timestamp);
 		
@@ -93,6 +97,8 @@ public class MessageMemoController {
 		
 //		CrudRepository.javaで定義されているsaveメソッドを呼び出している。
 		messageRepository.save(messageAddData);
+		
+		return "m_memo.html";
 	}
 
 }
