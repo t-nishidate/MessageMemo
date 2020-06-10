@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-//import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException; 
 
 //画面遷移の制御や主となる処理を実行するクラスに付与するアノテーションである。
 @Controller
@@ -63,11 +66,11 @@ public class MessageMemoController {
 //	String型のcustmer_cd、String型のsender、String型のmessage_cd、String型のmemoの8つである。
 	public @ResponseBody String addNewMessage(    @RequestParam String to_name
 												, @RequestParam String receiver_cd
-												, @RequestParam String receiv_time
 												, @RequestParam String custmer_cd
 												, @RequestParam String sender
 												, @RequestParam String message_cd
-												, @RequestParam String memo) {
+												, @RequestParam String memo
+												, HttpServletRequest request) throws ParseException {
 		
 //		Messageクラス型のmessageAddDataというインスタンスを生成している。
 		Message messageAddData = new Message();
@@ -76,12 +79,40 @@ public class MessageMemoController {
 //		フォームに入力した要素を"メッセージID","宛先者氏名","受電者コード","受電日時","顧客コード","発信者","メッセージコード","メモ"にそれぞれ設定している。
 		messageAddData.setAll(to_name,receiver_cd,custmer_cd,sender,message_cd,memo);
 		
+		try {
+			String[] receiv_time = request.getParameterValues("receiv_time[]");
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/ddhh:mm");
+			
+			if(receiv_time[3] == "AM") {
+				String str1 = receiv_time[0] + "/" +  receiv_time[1] + "/" + receiv_time[2] + receiv_time[4] + ":" + receiv_time[5];
+				
+				Date date1 = sdf.parse(str1);
+				
+				Timestamp ts1 = new Timestamp(date1.getTime());
+				
+				messageAddData.setReceiv_time(ts1);
+			} else {
+				int pm_time = Integer.parseInt(receiv_time[4]) + 12;
+				
+				String change_time = String.valueOf(pm_time);
+				
+				String str2 = receiv_time[0] + "/" +  receiv_time[1] + "/" + receiv_time[2] + change_time + ":" + receiv_time[5];
+				
+				Date date2 = sdf.parse(str2);
+				
+				Timestamp ts2 = new Timestamp(date2.getTime());
+				
+				messageAddData.setReceiv_time(ts2);
+			}
+		} catch(NullPointerException e) {
+			System.out.println("例外が発生しました");
+		}
+		
+		messageAddData.setM_id(1);
+		
 //		Timestampクラス型のtimestampというインスタンスを生成している。
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
-		System.out.println(receiv_time);
-		
-		messageAddData.setReceiv_time(timestamp);
 		
 //		更新日時にシステム日時を設定している。
 		messageAddData.setCreate_date(timestamp);

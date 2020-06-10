@@ -22,6 +22,12 @@ public class Message {
 	@Id
 	
 //	Entityクラス内で定義したテーブルのカラム名に相当するメンバ変数に付与するアノテーションである。データ型や長さの指定ができる。
+	@Column(name="M_ID" ,nullable = false ,columnDefinition = "INT")
+	
+//	m_idというint型(整数型)の非公開フィールドである。
+	private int m_id;
+	
+//	Entityクラス内で定義したテーブルのカラム名に相当するメンバ変数に付与するアノテーションである。データ型や長さの指定ができる。
 	@Column(name="TO_NAME" ,nullable = false ,columnDefinition = "VARCHAR(40)")
 	
 //	to_nameというString型(文字列型)の非公開フィールドである。
@@ -86,6 +92,16 @@ public class Message {
 	
 //	create_userというString型(文字列型)の非公開フィールドである。
 	private String create_user;
+	
+//	getM_idという戻り値の型がint型(整数型)で引数なしの公開メソッドである。戻り値としてm_idを返している。
+	public int getM_id() {
+		return m_id;
+	}
+	
+//	setM_idという戻り値なしで、引数がint型(整数型)の公開メソッドである。フィールドのM_idに引数を代入している。
+	public void setM_id(int m_id) {
+		this.m_id = m_id;
+	}
 	
 //	getTo_nameという戻り値の型がString型(文字列型)で引数なしの公開メソッドである。戻り値としてto_nameを返している。
 	public String getTo_name() {
