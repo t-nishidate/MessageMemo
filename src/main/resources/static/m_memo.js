@@ -112,9 +112,11 @@ $('#regist').on('click',function() {
 	checkedNum = $('.check:checked').length;
 	if(checkedNum > 0) {
 		$('#check_alert').text('');
+		$('#regist_alert').text('');
 		return true;
 	} else {
 		$('#check_alert').text('対応のいずれかにチェックしてください');
+		$('#regist_alert').text('');
 		return false;
 	}
 });
