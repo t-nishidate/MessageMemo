@@ -39,8 +39,10 @@ public class MessageMemoController {
 //	messageRepositoryというMessageRepositoryクラス型の非公開フィールドである。
 	private MessageRepository messageRepository;
 	
+//	@Component(@Controller ,@Service ,@Repositoryのこと)があるクラスの中から、該当するものを探し出すアノテーションである。
 	@Autowired
 	
+//	repというMessageRepositoryクラス型の非公開フィールドである。
 	private MessageRepository rep;
 	
 //	クライアントからのリクエストに対してマッピングを行うアノテーションである。特定のURLを指定する。
@@ -95,10 +97,10 @@ public class MessageMemoController {
 		try {
 			String[] receiv_time = request.getParameterValues("receiv_time[]");
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/ddhh:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
 			
 			if(receiv_time[3].equals("AM")) {
-				String str = receiv_time[0] + "/" +  receiv_time[1] + "/" + receiv_time[2] + receiv_time[4] + ":" + receiv_time[5];
+				String str = receiv_time[0] + "/" +  receiv_time[1] + "/" + receiv_time[2] + " " + receiv_time[4] + ":" + receiv_time[5];
 				
 				Date date = sdf.parse(str);
 				
@@ -110,7 +112,7 @@ public class MessageMemoController {
 				
 				String change_time = String.valueOf(pm_time);
 				
-				String str = receiv_time[0] + "/" +  receiv_time[1] + "/" + receiv_time[2] + change_time + ":" + receiv_time[5];
+				String str = receiv_time[0] + "/" +  receiv_time[1] + "/" + receiv_time[2] + " " + change_time + ":" + receiv_time[5];
 				
 				Date date = sdf.parse(str);
 				

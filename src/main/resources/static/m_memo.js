@@ -1,23 +1,3 @@
-let hour = document.getElementById("hour");
-
-document.createElement('option');
-for(let i = 1; i <= 12; i++) {
-	let option1 = document.createElement('option');
-	option1.setAttribute('value', i);
-	option1.innerHTML = i;
-	hour.appendChild(option1);
-}
-
-let minute = document.getElementById("minute");
-
-document.createElement('option');
-for(let j = 0; j <= 59; j++) {
-	let option2 = document.createElement('option');
-	option2.setAttribute('value', j);
-	option2.innerHTML = j;
-	minute.appendChild(option2);
-}
-
 function setDate() {
 	let today = new Date();
 	let nowYear = today.getFullYear();
