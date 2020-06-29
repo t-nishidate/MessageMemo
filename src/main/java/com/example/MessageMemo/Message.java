@@ -98,7 +98,7 @@ public class Message {
 		return m_id;
 	}
 	
-//	setM_idという戻り値なしで、引数がint型(整数型)の公開メソッドである。フィールドのM_idに引数を代入している。
+//	setM_idという戻り値なしで、引数がint型(整数型)の公開メソッドである。フィールドのm_idに引数を代入している。
 	public void setM_id(int m_id) {
 		this.m_id = m_id;
 	}

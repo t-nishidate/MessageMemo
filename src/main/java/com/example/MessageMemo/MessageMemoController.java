@@ -7,13 +7,15 @@ import java.sql.Timestamp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.text.ParseException; 
+import java.text.ParseException;
+import java.util.List;
 
 //画面遷移の制御や主となる処理を実行するクラスに付与するアノテーションである。
 @Controller
@@ -45,6 +47,10 @@ public class MessageMemoController {
 //	repというMessageRepositoryクラス型の非公開フィールドである。
 	private MessageRepository rep;
 	
+	@Autowired
+	
+	private HistoryRepository historyRepository;
+	
 //	クライアントからのリクエストに対してマッピングを行うアノテーションである。特定のURLを指定する。
 	@RequestMapping("/msgmemo/inputForm")
     
@@ -62,6 +68,17 @@ public class MessageMemoController {
 		// 伝言メモ画面を表示する。
         return "m_memo";
     }
+	
+	@GetMapping("/msgmemo/history")
+	
+	public String m_history(Model model) {
+		
+		List<History> historyList = historyRepository.plusTable();
+		
+		model.addAttribute("historylist", historyList);
+		
+		return "m_history";
+	}
 	
 //	@RequestMappingのPOSTリクエスト用のアノテーションである。ページのパスを指定することができる。DB登録処理を行う。
 	@PostMapping(path="/msgmemo/inputForm")

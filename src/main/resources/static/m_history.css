@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+main {
+	background-color: #EEEEEE;
+}
+
+th {
+	background-color: #FFFFCC;
+	position: -webkit-sticky;
+	position: sticky;
+	top: -1px;
+}
+
+#change_link {
+	text-decoration: none;
+}
